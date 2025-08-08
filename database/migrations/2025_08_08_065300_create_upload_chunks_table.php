@@ -13,7 +13,13 @@ return new class extends Migration
     {
         Schema::create('upload_chunks', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('upload_id');
+            $table->unsignedInteger('chunk_id');
+            $table->longText('chunk_data'); // JSON of rows
             $table->timestamps();
+
+            $table->unique(['upload_id', 'chunk_id'], 'upload_chunk');
+            $table->foreign('upload_id')->references('id')->on('upload_history')->onDelete('cascade');
         });
     }
 

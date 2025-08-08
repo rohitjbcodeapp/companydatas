@@ -13,7 +13,15 @@ return new class extends Migration
     {
         Schema::create('column_mappings', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('upload_id');
+            $table->string('source_column')->nullable();
+            $table->string('target_column')->nullable();
+            $table->boolean('is_selected')->default(true);
+            $table->integer('column_order')->nullable();
             $table->timestamps();
+
+            $table->index('upload_id', 'idx_upload');
+            $table->foreign('upload_id')->references('id')->on('upload_history')->onDelete('cascade');
         });
     }
 
