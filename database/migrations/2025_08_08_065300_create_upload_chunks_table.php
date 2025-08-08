@@ -16,6 +16,8 @@ return new class extends Migration
             $table->unsignedBigInteger('upload_id');
             $table->unsignedInteger('chunk_id');
             $table->longText('chunk_data'); // JSON of rows
+            $table->string('status')->default('pending');
+            $table->unsignedInteger('processed_rows')->default(0);
             $table->timestamps();
 
             $table->unique(['upload_id', 'chunk_id'], 'upload_chunk');

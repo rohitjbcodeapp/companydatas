@@ -8,7 +8,7 @@ use App\Jobs\ProcessUploadJob;
 use App\Models\UploadHistory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str; 
+use Illuminate\Support\Str;
 
 class UploadController extends Controller
 {
@@ -29,6 +29,8 @@ class UploadController extends Controller
         $originalName = $file->getClientOriginalName();
         $ext = strtolower($file->getClientOriginalExtension());
         $storedName = time() . '_' . Str::random(8) . '.' . $ext;
+        
+        // Store file in uploads directory
         $path = $file->storeAs('uploads', $storedName);
 
         $upload = UploadHistory::create([
@@ -37,7 +39,7 @@ class UploadController extends Controller
             'file_size' => $file->getSize(),
             'data_type' => $request->data_type,
             'file_type' => $ext === 'csv' ? 'csv' : 'excel',
-            'status' => 'uploaded',
+            'status' => 'processing',
             'apollo_url' => $request->apollo_url,
             'custom_file_name' => $request->custom_file_name,
             'file_url' => Storage::url($path),

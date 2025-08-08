@@ -41,3 +41,6 @@ export interface User {
     updated_at: string;
     [key: string]: unknown; // This allows for additional properties...
 }
+
+// sonner types provided by package; this is a no-op placeholder to avoid TS complaints if not resolved
+declare module 'sonner';

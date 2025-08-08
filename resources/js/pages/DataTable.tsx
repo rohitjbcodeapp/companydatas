@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import axios from "@/lib/axios";
 import { useParams } from "react-router-dom";
 import { Input } from "@/components/ui/input";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
@@ -11,7 +11,7 @@ export default function DataTablePage() {
   const [search, setSearch] = useState("");
 
   useEffect(() => {
-    axios.get(`http://companydatas.test/api/uploads/${id}/data`)
+    axios.get(`/api/uploads/${id}/data`)
       .then((res) => setData(res.data.data || []));
   }, [id]);
 
